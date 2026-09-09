@@ -1,29 +1,31 @@
-# DigiHR Railway archive
+# Transfer DigiHR
 
-Public download of `digihr-railway.tar.gz` (131142 bytes).
+Public source: https://github.com/thietkewebdev/digihr
 
-SHA256: `d8eea606be747f9df548d1b7f150fcec0085cf2944754fb4ab376696123401ba`
+Do **not** concatenate `transfer/p*.b64`. Those chunks drifted during upload and will not decode to a valid tar.gz.
 
-## Reconstruct from parts
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/thietkewebdev/digihr/main/transfer/part0.b64 \
-     https://raw.githubusercontent.com/thietkewebdev/digihr/main/transfer/part1.b64 \
-     https://raw.githubusercontent.com/thietkewebdev/digihr/main/transfer/part2.b64 \
-     https://raw.githubusercontent.com/thietkewebdev/digihr/main/transfer/part3.b64 \
-     https://raw.githubusercontent.com/thietkewebdev/digihr/main/transfer/part4.b64 \
-  | tr -d '\n' | base64 -d > digihr-railway.tar.gz
-
-sha256sum digihr-railway.tar.gz
-# must be d8eea606be747f9df548d1b7f150fcec0085cf2944754fb4ab376696123401ba
-```
-
-## Deploy on Railway
+## Get the app
 
 ```bash
-tar -xzf digihr-railway.tar.gz
-cd digihr-railway   # or the extracted root
+git clone https://github.com/thietkewebdev/digihr.git
+cd digihr
 npm install
 npm run build
 npm start
 ```
+
+Railway: connect this GitHub repo. Nixpacks, Node 22, `npm run build` / `npm start`. Binds `0.0.0.0` and `$PORT`.
+
+## Optional: make your own deploy tarball
+
+```bash
+tar -czf digihr-railway.tar.gz \
+  --exclude=node_modules --exclude=.next --exclude=.git \
+  --exclude=transfer --exclude=digihr-railway.tar.gz \
+  .
+```
+
+Original in-session archive (not reconstructable from chat or `transfer/`):
+
+- SIZE: 131142
+- SHA256: d8eea606be747f9df548d1b7f150fcec0085cf2944754fb4ab376696123401ba
