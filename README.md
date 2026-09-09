@@ -4,9 +4,13 @@
 
 Bản này là UI + dữ liệu mẫu (8 nhân sự thật + 1 quản lý + 1 kế toán lương). Không có backend, đăng nhập hay Lark.
 
+Repo công khai: https://github.com/thietkewebdev/digihr
+
 ## Chạy local
 
 ```bash
+git clone https://github.com/thietkewebdev/digihr.git
+cd digihr
 npm install
 npm run dev
 ```
